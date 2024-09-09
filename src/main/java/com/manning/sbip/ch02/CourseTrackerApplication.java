@@ -1,34 +1,53 @@
 package com.manning.sbip.ch02;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.manning.sbip.ch02.model.Course;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.Set;
 
 @SpringBootApplication
 public class CourseTrackerApplication implements CommandLineRunner {
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(CourseTrackerApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(CourseTrackerApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return args -> {
-            logger.info("CommandLine Runnr executed as a bean definition with " + args.length + " arguments");
-
-            for (int i = 0; i < args.length; i++) {
-                logger.info("Argument: "+ args[i]);
-            }
-        };
-    }
-
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String ...args) throws Exception {
+        Course course = new Course();
+        course.setId(1);
+        course.setRating(0);
 
+        Validator validator =
+                Validation.buildDefaultValidatorFactory().getValidator();
+
+        Set<ConstraintViolation<Course>> violations = validator.validate(course);
+
+        violations.forEach(courseConstraintViolation ->
+                logger.error("A constraint violation has occurred. Violation details: [{}]. ",
+                        courseConstraintViolation));
     }
+//
+//    @Bean
+//    public CommandLineRunner commandLineRunner() {
+//        return args -> {
+//            logger.info("CommandLine Runnr executed as a bean definition with " + args.length + " arguments");
+//
+//            for (int i = 0; i < args.length; i++) {
+//                logger.info("Argument: "+ args[i]);
+//            }
+//        };
+//    }
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//
+//    }
 }

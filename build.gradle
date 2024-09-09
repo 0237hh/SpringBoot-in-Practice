@@ -27,8 +27,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation group: 'org.passay', name: 'passay', version: '1.6.0'
 }
 
+configurations {
+    all {
+        exclude group: 'ch.qos.logback'
+    }
+}
 tasks.named('test') {
     useJUnitPlatform()
 }

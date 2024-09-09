@@ -1,6 +1,6 @@
 package com.manning.sbip.ch02;
 
-import com.manning.sbip.ch02.model.Course;
+import com.manning.sbip.ch02.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -21,18 +21,32 @@ public class CourseTrackerApplication implements CommandLineRunner {
 
     @Override
     public void run(String ...args) throws Exception {
-        Course course = new Course();
-        course.setId(1);
-        course.setRating(0);
+        User user1 = new User("sbip01", "sbip");
 
-        Validator validator =
-                Validation.buildDefaultValidatorFactory().getValidator();
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user1);
 
-        Set<ConstraintViolation<Course>> violations = validator.validate(course);
+        logger.error ("Password for user1 do not adhere to the password policy");
 
-        violations.forEach(courseConstraintViolation ->
-                logger.error("A constraint violation has occurred. Violation details: [{}]. ",
-                        courseConstraintViolation));
+        violations.forEach(constraintViolation -> logger.error("Violation details: [{}].", constraintViolation.getMessage()));
+        if (!violations.isEmpty()) {
+            logger.info("Password for user2 adhere to the password policy");
+        }
+
+        User user2 = new User("sbip02", "Sbip01$4UDfg");
+        violations = validator.validate(user2);
+        if(!violations.isEmpty()) {
+            logger.info("Password for user2 do not adhere to the password policy");
+        }
+        User user3 = new User("sbip03", "Sbip014UDfgggg");
+        violations = validator.validate(user3);
+        logger.error ("Password for user3 do not adhere to the password policy");
+        violations.forEach(constraintViolation -> logger.error("Violation details: [{}].", constraintViolation.getMessage()));
+
+        User user4 = new User("sbip04", "Sbip014UDfgggg");
+        violations = validator.validate(user4);
+        logger.error ("Password for user4 do not adhere to the password policy");
+        violations.forEach(userConstraintViolation -> logger.error("Violation details: [{}].", userConstraintViolation.getMessage()));
     }
 //
 //    @Bean

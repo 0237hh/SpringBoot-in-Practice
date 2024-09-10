@@ -38,6 +38,7 @@ public class CourseTrackerApplication implements CommandLineRunner {
         if(!violations.isEmpty()) {
             logger.info("Password for user2 do not adhere to the password policy");
         }
+
         User user3 = new User("sbip03", "Sbip014UDfgggg");
         violations = validator.validate(user3);
         logger.error ("Password for user3 do not adhere to the password policy");
@@ -48,20 +49,5 @@ public class CourseTrackerApplication implements CommandLineRunner {
         logger.error ("Password for user4 do not adhere to the password policy");
         violations.forEach(userConstraintViolation -> logger.error("Violation details: [{}].", userConstraintViolation.getMessage()));
     }
-//
-//    @Bean
-//    public CommandLineRunner commandLineRunner() {
-//        return args -> {
-//            logger.info("CommandLine Runnr executed as a bean definition with " + args.length + " arguments");
-//
-//            for (int i = 0; i < args.length; i++) {
-//                logger.info("Argument: "+ args[i]);
-//            }
-//        };
-//    }
-//
-//    @Override
-//    public void run(String... args) throws Exception {
-//
-//    }
+
 }

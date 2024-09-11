@@ -18,5 +18,15 @@ INSERT INTO COURSES (ID, NAME, CATEGORY, RATING, DESCRIPTION)
 VALUES ( 5, 'Getting Started with Spring Cloud Kubernetes', 'Spring', 5,
         'Master Spring Boot application deployment with Kubernetes');
 
+INSERT INTO AUTHORS (ID, BIO, NAME)
+VALUES ( 1, 'Author of several Spring Boot courses', 'John Doe');
 
+INSERT INTO AUTHORS (ID, BIO, NAME)
+VALUES ( 2, 'Steve Muller','Author of several popular Spring and Python courses');
+
+INSERT INTO AUTHORS_COURSES (AUTHOR_ID, COURSE_ID) VALUES ( 1, 1);
+INSERT INTO AUTHORS_COURSES (AUTHOR_ID, COURSE_ID) VALUES ( 1, 2);
+INSERT INTO AUTHORS_COURSES (AUTHOR_ID, COURSE_ID) VALUES ( 2, 1);
+INSERT INTO AUTHORS_COURSES (AUTHOR_ID, COURSE_ID) VALUES ( 2, 2);
+INSERT INTO AUTHORS_COURSES (AUTHOR_ID, COURSE_ID) VALUES ( 2, 3);
 

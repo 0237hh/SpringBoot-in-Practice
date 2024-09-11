@@ -3,22 +3,14 @@ package com.manning.sbip.ch03.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
+@Entity (name = "COURSES")
 @Table(name = "COURSES")
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
-//@NamedQuery(name = "Course.finaAllByCategoryAndRating",
-//            query = "select c from Course c where c.category=?1 and c.rating=?2")
-@NamedQueries({
-        @NamedQuery(name = "Course.finaAllByCategoryAndRating",
-                    query = "select c from Course c where c.rating=?1"),
-        @NamedQuery(name = "Course.finaAllByCategoryAndRating",
-                    query = "select c from Course c where c.category=?1 and c.rating=?2")
-})
 public class Course {
     @Id
     @Column
@@ -37,4 +29,15 @@ public class Course {
     @Column (name = "DESCRIPTION")
     private String description;
 
+    @ManyToMany (mappedBy = "courses")
+    private Set<Author> authors = new HashSet<>();
+
+    public Course() {}
+
+    public Course(String name, String category, int rating, String description) {
+        this.name = name;
+        this.category = category;
+        this.rating = rating;
+        this.description = description;
+    }
 }

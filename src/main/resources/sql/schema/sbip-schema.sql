@@ -22,7 +22,7 @@ CREATE TABLE authors_courses
     PRIMARY KEY (author_id, course_id)
 );
 
-DROP TABLE COURSES;
+DROP TABLE IF EXISTS COURSES;
 
 CREATE TABLE courses
 (

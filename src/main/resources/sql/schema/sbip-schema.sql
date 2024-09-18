@@ -41,3 +41,17 @@ REFERENCES courses(id);
 ALTER TABLE authors_courses
 ADD CONSTRAINT author_id_fk FOREIGN KEY (author_id)
 REFERENCES authors(id);
+
+create table users(
+    username VARCHAR(50) not null Primary Key ,
+    password varchar(500) not null ,
+    enabled boolean not null
+);
+
+create table authorities(
+    username varchar(50) not null PRIMARY KEY ,
+    authority varchar(50) not null ,
+    constraint fk_authorities_users foreign key(username) references users(username)
+);
+
+create unique index ix_auth_username on authorities (username, authority);

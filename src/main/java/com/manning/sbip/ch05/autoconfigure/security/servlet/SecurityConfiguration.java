@@ -9,38 +9,29 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AccessDeniedHandler customAccessDeniedHandler;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                .withUser("user")
-                .password(passwordEncoder()
-                        .encode("p@ssw0rd")).roles("USER")
-                .and()
-                .withUser("admin")
-                .password(passwordEncoder().encode("pa$$w0rd"))
-                .roles("ADMIN");
-    }
+    private DataSource dataSource;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/delete").hasRole("ADMIN")
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/login")
-                .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
+                .formLogin().loginPage("/login");
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**");
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Bean

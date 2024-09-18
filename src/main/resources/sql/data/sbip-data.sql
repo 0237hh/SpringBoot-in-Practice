@@ -35,3 +35,9 @@ INSERT INTO USERS (USERNAME, PASSWORD, ENABLED) VALUES ( 'admin', 'pa$$w0rd', tr
 
 INSERT INTO AUTHORITIES (username, authority) VALUES ( 'user', 'USER' );
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY) VALUES ( 'admin', 'ADMIN' );
+
+INSERT INTO CT_USERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME, VERIFIED, LOCKED, ACC_CRED_EXPIRED)
+VALUES ( 1, 'John', 'jsocket', 'password', 'jsocket@example.com', TRUE, FALSE, FALSE);
+
+INSERT INTO CT_USERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME, VERIFIED, LOCKED, ACC_CRED_EXPIRED)
+VALUES ( 2, 'Steve', 'smith', 'password', 'smith@example.com', false, false, false );

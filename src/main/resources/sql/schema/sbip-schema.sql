@@ -55,3 +55,17 @@ create table authorities(
 );
 
 create unique index ix_auth_username on authorities (username, authority);
+
+CREATE TABLE ct_users (
+      ID BIGINT NOT NULL,
+      first_name VARCHAR(255) NOT NULL,
+      last_name VARCHAR(255) NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      username VARCHAR(255) NOT NULL,
+      verified BOOLEAN NOT NULL,
+      locked BOOLEAN NOT NULL,
+      ACC_CRED_EXPIRED BOOLEAN NOT NULL,
+      PRIMARY KEY (ID)
+);
+
+

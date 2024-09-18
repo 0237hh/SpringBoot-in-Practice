@@ -22,7 +22,7 @@ CREATE TABLE authors_courses
     PRIMARY KEY (author_id, course_id)
 );
 
-DROP TABLE COURSES;
+DROP TABLE IF EXISTS COURSES;
 
 CREATE TABLE courses
 (
@@ -41,3 +41,31 @@ REFERENCES courses(id);
 ALTER TABLE authors_courses
 ADD CONSTRAINT author_id_fk FOREIGN KEY (author_id)
 REFERENCES authors(id);
+
+create table users(
+    username VARCHAR(50) not null Primary Key ,
+    password varchar(500) not null ,
+    enabled boolean not null
+);
+
+create table authorities(
+    username varchar(50) not null PRIMARY KEY ,
+    authority varchar(50) not null ,
+    constraint fk_authorities_users foreign key(username) references users(username)
+);
+
+create unique index ix_auth_username on authorities (username, authority);
+
+CREATE TABLE ct_users (
+      ID BIGINT NOT NULL,
+      first_name VARCHAR(255) NOT NULL,
+      last_name VARCHAR(255) NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      username VARCHAR(255) NOT NULL,
+      verified BOOLEAN NOT NULL,
+      locked BOOLEAN NOT NULL,
+      ACC_CRED_EXPIRED BOOLEAN NOT NULL,
+      PRIMARY KEY (ID)
+);
+
+

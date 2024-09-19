@@ -56,16 +56,16 @@ create table authorities(
 
 create unique index ix_auth_username on authorities (username, authority);
 
+DROP TABLE IF EXISTS ct_users;
+
 CREATE TABLE ct_users (
-      ID BIGINT NOT NULL,
+      ID BIGINT NOT NULL auto_increment,
       first_name VARCHAR(255) NOT NULL,
       last_name VARCHAR(255) NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      username VARCHAR(255) NOT NULL,
-      verified BOOLEAN NOT NULL,
-      locked BOOLEAN NOT NULL,
-      ACC_CRED_EXPIRED BOOLEAN NOT NULL,
-      PRIMARY KEY (ID)
+      email VARCHAR(50),
+      username VARCHAR(50),
+      password VARCHAR(100),
+      primary key (id)
 );
 
 
